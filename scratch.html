@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>LEGO Star Wars Collection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="scratch-style.css" />
+</head>
+<body>
+
+<div id="rare-color-app" style="font-family: 'Rubik', sans-serif; background:#121212; color:#eee; max-width:320px; padding:1.5rem; border-radius:16px; box-shadow:0 0 15px #00bfa5; margin:2rem auto; text-align:center;">
+  <h2 style="color:#80cbc4; margin-bottom:1rem;">Rare / Unused Color Generator</h2>
+  <div id="color-box" style="width:250px; height:250px; border-radius:16px; margin:0 auto 1rem auto; box-shadow:0 0 15px #00bfa5; transition: background-color 0.5s ease;"></div>
+  <div id="color-code" style="font-weight:700; letter-spacing:2px; font-size:1.4rem; margin-bottom:1.5rem;">#FFFFFF</div>
+  <button id="generate-btn" style="background:#00bfa5; border:none; color:#121212; font-weight:700; padding:0.75rem 2rem; font-size:1rem; border-radius:12px; cursor:pointer; transition: background-color 0.3s ease;">Generate Rare Color</button>
+</div>
+
+<script>
+  function generateRareColor() {
+    const hueRanges = [[60,100], [140,180], [240,280]];
+    const range = hueRanges[Math.floor(Math.random() * hueRanges.length)];
+    const hue = Math.floor(Math.random() * (range[1] - range[0])) + range[0];
+    const saturation = Math.floor(Math.random() * 30) + 60;
+    const lightness = Math.floor(Math.random() * 20) + 40;
+    return hslToHex(hue, saturation, lightness);
+  }
+
+  function hslToHex(h, s, l) {
+    s /= 100; l /= 100;
+    const c = (1 - Math.abs(2 * l - 1)) * s;
+    const x = c * (1 - Math.abs((h / 60) % 2 - 1));
+    const m = l - c/2;
+    let r=0,g=0,b=0;
+
+    if (0 <= h && h < 60) { r=c; g=x; b=0; }
+    else if (60 <= h && h < 120) { r=x; g=c; b=0; }
+    else if (120 <= h && h < 180) { r=0; g=c; b=x; }
+    else if (180 <= h && h < 240) { r=0; g=x; b=c; }
+    else if (240 <= h && h < 300) { r=x; g=0; b=c; }
+    else if (300 <= h && h < 360) { r=c; g=0; b=x; }
+
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
+  }
+
+  const colorBox = document.getElementById('color-box');
+  const colorCode = document.getElementById('color-code');
+  const generateBtn = document.getElementById('generate-btn');
+
+  function setColor() {
+    const color = generateRareColor();
+    colorBox.style.backgroundColor = color;
+    colorCode.textContent = color;
+  }
+
+  generateBtn.addEventListener('click', setColor);
+
+  setColor();
+</script>
+
+  <header>
+    <h1>LEGO Star Wars Collector's Page</h1>
+    <nav>
+      <a href="#top-sets">Top Sets</a>
+      <a href="#favorites">Favorite</a>
+      <a href="#video">Video</a>
+      <a href="#graph">Data</a>
+      <a href="../index.html">Back to Resume</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="intro" class="box">
+      <h2>Why LEGO Star Wars?</h2>
+      <p>LEGO Star Wars combines creativity and nostalgia. Each set brings a piece of the galaxy to life—from epic battles to detailed ships. I collect these sets to build, relive scenes, and admire their detail.</p>
+    </section>
+
+    <section id="top-sets" class="box">
+      <h2>Top LEGO Star Wars Sets</h2>
+      <ol>
+        <li>Ultimate Collector Series (UCS)
+          <ul>
+            <li>Millennium Falcon</li>
+            <li>Death Star II</li>
+            <li>Imperial Star Destroyer</li>
+          </ul>
+        </li>
+        <li>Iconic Sets
+          <ul>
+            <li>X-Wing Starfighter</li>
+            <li>AT-AT Walker</li>
+            <li>Clone Turbo Tank</li>
+          </ul>
+        </li>
+      </ol>
+    </section>
+
+    <section id="favorites" class="box">
+      <h2>My Favorite Set: UCS Death Star II</h2>
+      <img src="https://cdn.falconbricks.com/assets/star-wars/10143.jpg" alt="UCS Death Star II" width="400" />
+      <p>The UCS Death Star II is a 3,441-piece masterpiece. It captures the partially constructed space station from <em>Return of the Jedi</em> in stunning detail and is the centerpiece of my collection.</p>
+    </section>
+
+    <section id="video" class="box">
+      <h2>Set Review</h2>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/r0uxUmqpN6Y" 
+              title="UCS Death Star II Review" frameborder="0" allowfullscreen></iframe>
+    </section>
+
+    <section id="graph" class="box">
+      <h2>LEGO Star Wars Set Popularity</h2>
+      <!-- NEW TABLEAU EMBED STARTS HERE -->
+      <div class='tableauPlaceholder' id='viz1750470309687' style='position: relative'>
+        <noscript>
+          <a href='#'>
+            <img alt='Option 1' src='https://public.tableau.com/static/images/LE/LEGOMostPopularThemes/Option1/1_rss.png' style='border: none' />
+          </a>
+        </noscript>
+        <object class='tableauViz' style='display:none;'>
+          <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+          <param name='embed_code_version' value='3' />
+          <param name='site_root' value='' />
+          <param name='name' value='LEGOMostPopularThemes/Option1' />
+          <param name='tabs' value='no' />
+          <param name='toolbar' value='yes' />
+          <param name='static_image' value='https://public.tableau.com/static/images/LE/LEGOMostPopularThemes/Option1/1.png' />
+          <param name='animate_transition' value='yes' />
+          <param name='display_static_image' value='yes' />
+          <param name='display_spinner' value='yes' />
+          <param name='display_overlay' value='yes' />
+          <param name='display_count' value='yes' />
+          <param name='language' value='en-US' />
+        </object>
+      </div>
+      <script type='text/javascript'>
+  var divElement = document.getElementById('viz1750470309687');
+  var vizElement = divElement.getElementsByTagName('object')[0];
+  if (divElement.offsetWidth > 800) {
+    vizElement.style.width = '706px';
+    vizElement.style.height = '689px';
+  } else if (divElement.offsetWidth > 500) {
+    vizElement.style.width = '706px';
+    vizElement.style.height = '689px';
+  } else {
+    vizElement.style.width = '100%';
+    vizElement.style.height = '901px';
+  }
+  var scriptElement = document.createElement('script');
+  scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+  vizElement.parentNode.insertBefore(scriptElement, vizElement);
+</script>
+
+      <!-- NEW TABLEAU EMBED ENDS HERE -->
+    </section>
+
+    <div class="box center">
+      <a href="#intro" class="back-to-top">⬆ Back to Top</a>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 LEGO Star Wars Fan Page | <a href="../index.html">Back to Resume</a></p>
+  </footer>
+
+</body>
+</html>
